@@ -16,6 +16,23 @@ router.get("/", async (req, res) => {
 // Agregar un producto
 router.post("/", async (req, res) => {
 
+    // Eliminar producto
+    router.delete("/:id", async (req, res) => {
+
+        try {
+
+            await Producto.findByIdAndDelete(req.params.id);
+
+            res.json({ mensaje: "Producto eliminado" });
+
+        } catch (error) {
+
+            res.status(500).json({ mensaje: error.message });
+
+        }
+
+    });
+
     try {
 
         const producto = new Producto(req.body);
