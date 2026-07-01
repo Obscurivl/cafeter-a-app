@@ -74,17 +74,48 @@ router.post("/", async (req, res) => {
 
 // Eliminar pedido
 router.delete("/:id", async (req, res) => {
+
   try {
+
+    const pedido = await Pedido.findById(req.params.id);
+
+    if (!pedido) {
+
+      return res.status(404).json({
+        mensaje: "Pedido no encontrado"
+      });
+
+    }
+
+    // Devolver el stock
+    for (const item of pedido.productos) {
+
+      const producto = await Producto.findById(item.producto);
+
+      if (producto) {
+
+        producto.stock += item.cantidad;
+
+        await producto.save();
+
+      }
+
+    }
+
     await Pedido.findByIdAndDelete(req.params.id);
 
     res.json({
-      mensaje: "Pedido eliminado",
+      mensaje: "Pedido eliminado correctamente"
     });
+
   } catch (error) {
+
     res.status(500).json({
-      mensaje: error.message,
+      mensaje: error.message
     });
+
   }
+
 });
 
 module.exports = router;

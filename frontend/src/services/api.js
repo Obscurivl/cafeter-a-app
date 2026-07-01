@@ -83,6 +83,22 @@ export const eliminarCliente = async (id) => {
 
 };
 
+export const editarCliente = async (id, cliente) => {
+
+    return await fetch(`${URL}/clientes/${id}`, {
+
+        method: "PUT",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(cliente)
+
+    });
+
+};
+
 // Obtener pedidos
 export const obtenerPedidos = async () => {
     const respuesta = await fetch(`${URL}/pedidos`);
@@ -98,4 +114,22 @@ export const guardarPedido = async (pedido) => {
         },
         body: JSON.stringify(pedido)
     });
+};
+
+export const eliminarPedido = async (id) => {
+
+    return await fetch(`${URL}/pedidos/${id}`, {
+
+        method: "DELETE"
+
+    });
+
+};
+
+export const obtenerInformes = async () => {
+
+    const respuesta = await fetch(`${URL}/informes`);
+
+    return await respuesta.json();
+
 };

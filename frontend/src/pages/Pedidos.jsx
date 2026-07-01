@@ -4,11 +4,14 @@ import {
   obtenerClientes,
   obtenerProductos,
   guardarPedido,
+  obtenerPedidos,
+  eliminarPedido
 } from "../services/api";
 
 function Pedidos() {
   const [clientes, setClientes] = useState([]);
   const [productos, setProductos] = useState([]);
+  const [pedidos, setPedidos] = useState([]);
 
   const [cliente, setCliente] = useState("");
   const [producto, setProducto] = useState("");
@@ -21,9 +24,11 @@ function Pedidos() {
   const cargarDatos = async () => {
     const listaClientes = await obtenerClientes();
     const listaProductos = await obtenerProductos();
+    const listaPedidos = await obtenerPedidos();
 
     setClientes(listaClientes);
     setProductos(listaProductos);
+    setPedidos(listaPedidos);
   };
 
   const guardar = async () => {
@@ -50,11 +55,25 @@ function Pedidos() {
       setCliente("");
       setProducto("");
       setCantidad(1);
-
       cargarDatos();
+
     } else {
       const error = await respuesta.json();
       alert(error.mensaje);
+    }
+  };
+
+  const eliminar = async (id) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este pedido?")) {
+      const respuesta = await eliminarPedido(id);
+
+      if (respuesta.ok) {
+        alert("✅ Pedido eliminado correctamente");
+        cargarDatos();
+      } else {
+        const error = await respuesta.json();
+        alert(error.mensaje);
+      }
     }
   };
 
@@ -104,6 +123,65 @@ function Pedidos() {
       <button onClick={guardar}>
         Guardar Pedido
       </button>
+
+      <hr />
+
+      <h2>Pedidos realizados</h2>
+
+      {pedidos.map((pedido) => (
+
+        <div
+          key={pedido._id}
+          className="card"
+        >
+          <h3>
+
+            Cliente:
+
+            {pedido.cliente.nombre} {pedido.cliente.apellido}
+
+          </h3>
+
+          <p>
+            Fecha: {new Date(pedido.fecha).toLocaleDateString()}
+          </p>
+
+          <p>
+            Hora: {new Date(pedido.fecha).toLocaleTimeString()}
+          </p>
+
+          {pedido.productos.map((item, index) => (
+
+            <p key={index}>
+
+              {item.producto.nombre}
+
+              -
+
+              Cantidad: {item.cantidad}
+
+            </p>
+
+          ))}
+
+          <strong>
+
+            Total: ${pedido.total}
+
+          </strong>
+
+          <br /><br />
+
+          <button
+            className="eliminar"
+            onClick={() => eliminar(pedido._id)}
+          >
+            Eliminar Pedido
+          </button>
+
+        </div>
+
+      ))}
     </div>
   );
 }

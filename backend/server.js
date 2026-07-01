@@ -2,6 +2,7 @@ require("dotenv").config();
 const rutasProductos = require("./routes/productos");
 const rutasClientes = require("./routes/clientes");
 const rutasPedidos = require("./routes/pedidos");
+const rutasInformes = require("./routes/informes");
 
 const express = require("express");
 const cors = require("cors");
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use("/productos", rutasProductos);
 app.use("/clientes", rutasClientes);
 app.use("/pedidos", rutasPedidos);
+app.use("/informes", rutasInformes);
 
 app.get("/", (req, res) => {
     res.send("☕ API de Cafetería funcionando");

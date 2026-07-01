@@ -26,7 +26,6 @@ function Productos() {
         setProductoEditar(null);
 
         cargarProductos();
-
     };
 
     useEffect(() => {
@@ -47,7 +46,6 @@ function Productos() {
 
     return (
         <div style={{ padding: "30px", fontFamily: "Arial" }}>
-            <h1>☕ Sistema de Cafetería</h1>
 
             <FormularioProducto
                 guardar={productoEditar ? actualizarProducto : agregarProducto}

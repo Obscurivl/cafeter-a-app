@@ -113,3 +113,53 @@ button:hover {
 .eliminar:hover {
   background: #b71c1c;
 }
+
+.inicio{
+
+    text-align:center;
+
+    margin-top:60px;
+
+}
+
+.menu-principal{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,250px);
+
+    justify-content:center;
+
+    gap:30px;
+
+    margin-top:50px;
+
+}
+
+.boton-menu{
+
+    background:#5C4033;
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:40px;
+
+    border-radius:12px;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+.boton-menu:hover{
+
+    background:#7B523F;
+
+    transform:scale(1.05);
+
+}

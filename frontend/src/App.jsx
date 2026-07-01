@@ -3,9 +3,11 @@ import "./App.css";
 
 import { Routes, Route, Link } from "react-router-dom";
 
+import Inicio from "./pages/Inicio";
 import Productos from "./pages/Productos";
 import Clientes from "./pages/Clientes";
 import Pedidos from "./pages/Pedidos";
+import Informes from "./pages/Informes";
 
 function App(){
 
@@ -15,15 +17,19 @@ function App(){
 
             <header>
 
-                <h1>☕ Sistema de Cafetería</h1>
+                <h1>Sistema de Cafetería</h1>
 
                 <nav>
+                    
+                    <Link to="/">Inicio</Link>
 
-                    <Link to="/">Productos</Link>
+                    <Link to="/productos">Productos</Link>
 
                     <Link to="/clientes">Clientes</Link>
 
                     <Link to="/pedidos">Pedidos</Link>
+
+                    <Link to="/informes">Informes</Link>
 
                 </nav>
 
@@ -31,11 +37,15 @@ function App(){
 
             <Routes>
 
-                <Route path="/" element={<Productos/>}/>
+                <Route path="/" element={<Inicio />} />
+
+                <Route path="/productos" element={<Productos/>}/>
 
                 <Route path="/clientes" element={<Clientes/>}/>
 
                 <Route path="/pedidos" element={<Pedidos />} />
+
+                <Route path="/informes" element={<Informes />} />
 
             </Routes>
 
