@@ -30,3 +30,72 @@ export const eliminarProducto = async (id) => {
     });
 
 };
+
+export const editarProducto = async (id, producto) => {
+
+    return await fetch(`${URL}/productos/${id}`, {
+
+        method: "PUT",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify(producto)
+
+    });
+
+};
+
+export const obtenerClientes = async () => {
+
+    const respuesta = await fetch(`${URL}/clientes`);
+
+    return await respuesta.json();
+
+};
+
+export const guardarCliente = async (cliente) => {
+
+    return await fetch(`${URL}/clientes`, {
+
+        method: "POST",
+
+        headers: {
+
+            "Content-Type": "application/json"
+
+        },
+
+        body: JSON.stringify(cliente)
+
+    });
+
+};
+
+export const eliminarCliente = async (id) => {
+
+    return await fetch(`${URL}/clientes/${id}`, {
+
+        method: "DELETE"
+
+    });
+
+};
+
+// Obtener pedidos
+export const obtenerPedidos = async () => {
+    const respuesta = await fetch(`${URL}/pedidos`);
+    return await respuesta.json();
+};
+
+// Guardar pedido
+export const guardarPedido = async (pedido) => {
+    return await fetch(`${URL}/pedidos`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(pedido)
+    });
+};

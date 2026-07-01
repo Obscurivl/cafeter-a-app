@@ -16,7 +16,23 @@ router.get("/", async (req, res) => {
 // Agregar un producto
 router.post("/", async (req, res) => {
 
-    // Eliminar producto
+    try {
+
+        const producto = new Producto(req.body);
+
+        await producto.save();
+
+        res.status(201).json(producto);
+
+    } catch (error) {
+
+        res.status(400).json({ mensaje: error.message });
+
+    }
+
+});
+
+ // Eliminar producto
     router.delete("/:id", async (req, res) => {
 
         try {
@@ -33,17 +49,22 @@ router.post("/", async (req, res) => {
 
     });
 
+    // Editar producto
+router.put("/:id", async (req, res) => {
+
     try {
 
-        const producto = new Producto(req.body);
+        const producto = await Producto.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
 
-        await producto.save();
-
-        res.status(201).json(producto);
+        res.json(producto);
 
     } catch (error) {
 
-        res.status(400).json({ mensaje: error.message });
+        res.status(500).json({ mensaje: error.message });
 
     }
 
