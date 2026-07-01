@@ -135,11 +135,7 @@ function Pedidos() {
           className="card"
         >
           <h3>
-
-            Cliente:
-
-            {pedido.cliente.nombre} {pedido.cliente.apellido}
-
+            Cliente: {pedido?.cliente?.nombre || "Sin nombre"} {pedido?.cliente?.apellido || ""}
           </h3>
 
           <p>
@@ -150,18 +146,10 @@ function Pedidos() {
             Hora: {new Date(pedido.fecha).toLocaleTimeString()}
           </p>
 
-          {pedido.productos.map((item, index) => (
-
+          {pedido?.productos?.map((item, index) => (
             <p key={index}>
-
-              {item.producto.nombre}
-
-              -
-
-              Cantidad: {item.cantidad}
-
+              {item?.producto?.nombre || "Producto eliminado"} - Cantidad: {item?.cantidad}
             </p>
-
           ))}
 
           <strong>
